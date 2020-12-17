@@ -23,7 +23,14 @@ head(Anti.AR.Data)
 
 Anti.AR.Data.No.Spike <- read_csv("Anti-AR.Strata.No.Spike.csv")
 head(Anti.AR.Data)
-#boxplot with jitter AhR
+
+Anti.AR.Batch2.and.6.Removed <- read_csv("Anti.AR.Batch2.and.6.Removed.csv")
+head(Anti.AR.Batch2.and.6.Removed)
+
+Anti.AR.Bad.Batches.Removed <- read_csv("Anti.AR.Bad.Batches.Removed.csv")
+head(Anti.AR.Bad.Batches.Removed)
+
+#boxplot with jitter
 
 Anti.AR.Data %>%
   ggplot(aes(x=reorder(Stratum,inhibition,na.rm = TRUE), y=inhibition, fill=Stratum)) +
@@ -51,4 +58,28 @@ Anti.AR.Data.No.Spike %>%
   theme(axis.title.y=element_text(size=16, vjust=5))+
   theme(plot.margin = unit(c(1,1,1,1), "cm"))
 
+Anti.AR.Batch2.and.6.Removed %>%
+  ggplot(aes(x=reorder(Stratum,Anti.AR.Inhibition,na.rm = TRUE), y=Anti.AR.Inhibition, fill=Stratum)) +
+  geom_boxplot() +
+  geom_jitter(color="black", size=1.5, alpha=0.9, width = 0.1) +
+  theme_classic() +
+  theme(legend.position="none", plot.title = element_text(size=18)) +
+  ylim(0,40)+
+  ylab("% inhibition relative to cyproterone acetate") +
+  theme(axis.title.x=element_blank())+
+  theme(axis.text=element_text(size=16))+
+  theme(axis.title.y=element_text(size=16, vjust=5))+
+  theme(plot.margin = unit(c(1,1,1,1), "cm"))
 
+Anti.AR.Bad.Batches.Removed %>%
+  ggplot(aes(x=reorder(Stratum,Anti.AR.Inhibition,na.rm = TRUE), y=Anti.AR.Inhibition, fill=Stratum)) +
+  geom_boxplot() +
+  geom_jitter(color="black", size=1.5, alpha=0.9, width = 0.1) +
+  theme_classic() +
+  theme(legend.position="none", plot.title = element_text(size=18)) +
+  ylim(0,30)+
+  ylab("% inhibition relative to cyproterone acetate") +
+  theme(axis.title.x=element_blank())+
+  theme(axis.text=element_text(size=16))+
+  theme(axis.title.y=element_text(size=16, vjust=5))+
+  theme(plot.margin = unit(c(1,1,1,1), "cm"))
